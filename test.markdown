@@ -1,5 +1,5 @@
 ---
-title: test.markdown to test.html
+title: test.markdown2test.html
 layout: default
 ---
 
