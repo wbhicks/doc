@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Doc : Documentation" />
+    <meta name="description" content="doc : Draft Documentation" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Doc</title>
+    <title>doc</title>
   </head>
 
   <body>
@@ -18,8 +18,8 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/wbhicks/doc">View on GitHub</a>
 
-          <h1 id="project_title">Doc</h1>
-          <h2 id="project_tagline">Documentation</h2>
+          <h1 id="project_title">doc</h1>
+          <h2 id="project_tagline">Draft Documentation</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/wbhicks/doc/zipball/master">Download this project as a .zip file</a>
@@ -31,14 +31,584 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <p>project doc</p>
+        <p>This is the wiki built-in to the project named "doc".</p>
+
+<p>The content of this wiki is licensed under the same license that governs the project to which this wiki belongs. That license is available at <a href="https://github.com/wbhicks/doc/blob/master/LICENSE">https://github.com/wbhicks/doc/blob/master/LICENSE</a> .</p>
+
+<p><strong>Disclaimer</strong>: these are scratch notes for my own use. They'll almost certainly be useless if you don't have my machine, my offline projects, my offline whiteboard, etc.. Assume that everything here is out of date, incomplete, and wrong.</p>
+
+<ul>
+<li>the book named <em>Pro Git</em> on the MB: <code>file:///Users/Shared/Dev/Git/Pro_Git_book</code>
+</li>
+<li>wiki markup syntax for editing this page (and any other GitHub wiki):
+
+<ul>
+<li><a href="https://help.github.com/articles/github-flavored-markdown">https://help.github.com/articles/github-flavored-markdown</a></li>
+<li><a href="http://daringfireball.net/projects/markdown/syntax">http://daringfireball.net/projects/markdown/syntax</a></li>
+<li><a href="https://github.com/github/linguist/blob/master/lib/linguist/languages.yml">https://github.com/github/linguist/blob/master/lib/linguist/languages.yml</a></li>
+</ul>
+</li>
+</ul><p>On the MB, Git version 1.7.5.4 is already installed (this is machine-wide, not per-user -- i.e. the following applies no matter what OS X account you're logged into):</p>
+
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>which git
+/usr/local/git/bin/git
+<span class="nv">$ </span>git --version
+git version 1.7.5.4
+</pre></div>
+
+<p>On the MB, suppose we have two OS X user accounts -- i and g. Choose which one you want to work in.</p>
+
+<ol>
+<li>Using OS X user account i</li>
+</ol><p>Whenever you commit to a Git repository, the Git program will permanently label that commit with a username and email address of your choosing. They don't have to be real, and the Git program itself doesn't do anything to validate them.</p>
+
+<p>Obviously, if you were contributing to a real-world project administered by other people, you would want your identity to be established and consistent. But here, we'll be making only sample commits to our own sample projects -- and, keeping in mind that our GitHub activity will be public, we also want to reduce our exposure to spam. So we'll choose a clearly made-up name/email pair.</p>
+
+<p>First, invoke Git and use it to associate a name and email with this OS account:</p>
+
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>git config --global user.name <span class="s2">"Git username for MB acct i"</span>
+<span class="nv">$ </span>git config --global user.email fake_gu4mbai@git.sample.fake
+</pre></div>
+
+<p>The argument <code>--global</code> means "for this OS account". (You'd think that "global" would mean "for all accounts on this computer", but there's a different argument for that, which we'll ignore: <code>--system</code>. You can also use per-repository settings.)</p>
+
+<p>Next, you can tell Git to list all (or just the <code>--global</code>) configuration values that you've given it so far:</p>
+
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>git config --global --list
+user.name<span class="o">=</span>Git username <span class="k">for </span>MB acct i
+user.email<span class="o">=</span>fake_gu4mbai@git.sample.fake
+</pre></div>
+
+<p>How did Git remember? That's a useful question to ask when learning a new tool. Often the answer is that a running process has kept the values in memory, but in Git's case there is no daemon running in the background. Another common case is where the tool, upon installation, requires a connection to a separate database system (e.g. MySQL). Git, however, has none.</p>
+
+<p>That leaves a simple configuration file as the most likely answer, and since our settings are per-user (thanks to <code>--global</code>), we know where to start looking:</p>
+
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>ls -a ~ | grep git
+.gitconfig
+<span class="nv">$ </span>cat ~/.gitconfig 
+<span class="o">[</span>user<span class="o">]</span>
+    <span class="nv">name</span> <span class="o">=</span> Git username <span class="k">for </span>MB acct i
+    <span class="nv">email</span> <span class="o">=</span> fake_gu4mbai@git.sample.fake
+</pre></div>
+
+<p>Now let's switch our attention from Git to GitHub, because our commits won't be accepted by GitHub unless the email address shown above is known to a GitHub account. Fortunately, a GitHub account can know of more than one email address. </p>
+
+<p>Using this GitHub account (wbhicks) as an example: I logged into GitHub.com in a browser and added the email address above at <strong>Account Settings &gt; Emails &gt; Add another email address</strong> . (At which point, the web page says that GitHub has "... sent a verification email to <a href="mailto:fake_gu4mbai@git.sample.fake">fake_gu4mbai@git.sample.fake</a>." However, the GitHub documentation [[acknowledges|<a href="https://help.github.com/articles/keeping-your-email-address-private%5D">https://help.github.com/articles/keeping-your-email-address-private]</a>] that made-up email addresses are acceptable for such private purposes, so you can ignore the message. Keep in mind that such a conspicuously fake address is clearly not intended to deceive anyone.)</p>
+
+<p>Now back to Git. In Git, you work with <em>repositories</em>. For now, here are some <strong>simplifying falsehoods</strong>: you can think of a repository as equivalent to a project, and each repository/project will be embodied in its own local directory on your machine. Because we'll be juggling multiple repositories, we'll start by creating a parent directory to hold them. (This is analogous to the way that you manage multiple Eclipse projects within a single Eclipse workspace: the workspace is the parent directory, and each project is one of its subdirectories. As is the case with Eclipse, thinking in terms of a local Git workspace is a convenience, not a necessity.)</p>
+
+<p>Unlike the case with Eclipse, however, there is a remote partner in the picture: GitHub.com. We need to keep in mind that we'll be working with more than one GitHub account. So, let's first create a parent directory (workspace) to hold the repositories that will be associated specifically with this GitHub account (wbhicks):</p>
+
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>mkdir ~/Git_wrkspc_wbhicks
+</pre></div>
+
+<p>That's it, because Git doesn't acknowledge or make use of such a workspace. Git thinks only in terms of repositories, which -- as embodied by their corresponding local directories on your machine -- can be anywhere. Specifically, there is no Git equivalent to the Eclipse <code>.metadata</code> directory, which Eclipse generates inside your Eclipse workspace (and which is therefore independent of any one of your Eclipse projects).</p>
+
+<p>Let's return our attention for a moment to the <code>~/.gitconfig</code> file discussed earlier. Because that's just a file (and a very short and simple file at that), and because there's no Git sibling directory there (named, say, <code>~/.git_central_hq</code> or some such), you may be wondering where Git keeps all of the metadata that it needs to track and manage your local repositories. Where is its central database?</p>
+
+<p>It turns out that Git, by design, has no such central database. Instead, each repository/project is completely self-contained. For example, if we had a Git repository at <code>~/some_project</code>, then there would be no Git metadata anywhere outside that directory that referred to it.</p>
+
+<p><strong>TODO: Does some_project/.git use absolute paths, or can some_project be moved via mv, Finder etc.?</strong></p>
+
+<blockquote>
+<p>Sidenote:</p>
+
+<p>One natural direction in which you could exploit this freedom would be to let Git repositories blossom all over your hard drive, in effect to gradually Git-ize your existing filesystem in an ad hoc, informal manner that would proceed opportunistically and piecemeal. In such an approach, you would give up on the idea of managing your repositories as a set (via "workspaces" or other such groupings), and instead use Git where and when its features suited you, as a general-purpose layer on top of the filesystem provided by OS X.</p>
+
+<p>While there are important limitations and trade-offs in such an approach, it points to the idea of Git as a higher-level filesystem, and in fact Git was designed in part to support this. But we won't get into that here.</p>
+</blockquote>
+
+<p>The workspace (<code>~/Git_wrkspc_wbhicks</code>) is empty, so let's populate it with some arbitrary repository, which we'll copy from somewhere else:</p>
+
+<pre><code>$ cd ~/Git_wrkspc_wbhicks
+$ git clone git://github.com/schacon/simplegit-progit.git
+</code></pre>
+
+<p>Our local Git program has now copied the repository named <em>simplegit-progit</em> from somewhere else (as it happens, from GitHub) into the current directory (<code>~/Git_wrkspc_wbhicks</code>), where it shows up as the new directory <code>simplegit-progit</code>:</p>
+
+<pre><code>$ ls -a1
+.
+..
+simplegit-progit
+</code></pre>
+
+<blockquote>
+<p>Sidenote:</p>
+
+<p>Here, I've passed the option <code>a</code> to <code>ls</code> to show that Git didn't add any "hidden" directory or file to the workspace when it created the <code>simplegit-progit</code> directory. Hidden directories/files are those starting with a dot, and the <code>a</code> option forces them to display. The <code>.</code> and <code>..</code> needn't concern us here, as they aren't related to Git. I passed the option <code>1</code> to <code>ls</code> to make the output more legible in this wiki.</p>
+</blockquote>
+
+<p>Thanks to Git's clone command, we now have a complete, freestanding, fully independent copy of the entire simplegit-progit repository/project. Let's <code>cd</code> into it and list its top-level contents:</p>
+
+<pre><code>$ cd simplegit-progit
+$ ls -a1F
+./
+../
+.git/
+README
+Rakefile
+lib/
+</code></pre>
+
+<p>(I added the <code>F</code> option to <code>ls</code> so that directories will be indicated with a trailing slash.) Notice that the project contains a hidden directory, <code>.git</code>. This is very significant, and now that we've noticed <code>.git</code>, it's time to drop some of the <strong>simplifying falsehoods</strong> that I stipulated earlier.</p>
+
+<p>Earlier, I deliberately conflated <em>repository</em> with <em>project</em>. But it's more useful to think of the project as an abstract, but fully-defined, structure of files -- while the repository is entirely concrete, and is one of the places that the project is stored. In fact, the simplegit-progit project is actually stored <strong>twice</strong> in the <code>simplegit-progit</code> directory listed above! Here's how ...</p>
+
+<p><strong>TODO: Get someone who, unlike me, is <em>not</em> a Git newbie to review this</strong></p>
+
+<p>The simplegit-progit project itself consists of three siblings, two of which are files and one of which is a directory. The two files are <code>README</code> and <code>Rakefile</code>, and the directory is <code>lib</code>. The <code>.git</code> directory is <em>not</em> part of the simplegit-progit project, strictly speaking.</p>
+
+<p>The repository is the directory named <code>.git</code>. (Accordingly, the repository is also called the "Git directory".) But the repository holds much more than just the metadata needed to track changes to the project files: it also holds the project itself. The contents of the project (in simplegit-progit's case, that means README, Rakefile and lib) are stored in the repository.</p>
+
+<p>So, on our local disk, there are two places where the contents of the simplegit-progit project are found: outside the repository (that is, outside the <code>.git</code> directory) and inside the repository (inside the <code>.git</code> directory). Both of these places are under the <code>simplegit-progit</code> directory.</p>
+
+<p>The reason I referred to a project as an "abstract" structure is because a project doesn't always exist as "real" directories and files, meaning the kind that are managed by the OS and that are shown to us via tools like <code>ls</code> and Finder. For example, the instance of the project that exists alongside <code>.git</code> (in the form of <code>README</code>, <code>Rakefile</code> and <code>lib</code>) is clearly composed of real, OS-managed files. That's why they show up when we use <code>ls</code>. But the other instance of the project, the one that is located inside the repository (i.e. inside <code>.git</code>), does not have an OS-manipulable structure. </p>
+
+<p>The proof is that, using Finder (or <code>ls</code> and <code>cd</code> in a shell), you cannot navigate inside <code>.git</code> to a place where README, Rakefile and lib are visible. The reason is that Git uses a sophisticated database structure to hold such content inside the repository.</p>
+
+<p>How, then, did two instances of the same project come to be, inside the <code>simplegit-progit</code> directory? The answer is that, as soon as Git cloned the repository from the remote server (i.e. copied it from GitHub to your machine), it immediately performed a <em>checkout</em> of the project from the local repository that it had just created. The result of the checkout was a <em>working copy</em> of the project. Git had to do this in order to let you work with the files, e.g. read them, edit them, etc..</p>
+
+<p>The source of the checkout operation was the local repository (<code>~/Git_wrkspc_wbhicks/simplegit-progit/.git</code>), where the project is not in human-usable form. (It's embedded in Git's internal database structure instead.) The destination of the checkout operation was the repository's parent directory (<code>~/Git_wrkspc_wbhicks/simplegit-progit</code>), where the project appears in human-usable form (the working copy).</p>
+
+<p>To some extent, these semantics can be ignored: the working copy is the normal way to use a local repository, and <code>.git</code> is a hidden directory (so that the typical developer will be less likely to accidentally corrupt it). We can safely half-forget that <code>.git</code> exists, and imagine that Git accomplishes its tasks some other way. So, given a project named foo, it's reasonable for most purposes to think of a three-way equivalence among the project, the <code>foo</code> directory, and foo's local repository.</p>
+
+<hr><p>Now that we have a local Git repository, and a working copy of it has been automatically checked out for us, we can use Git's everyday features. We'll start by making changes to a single file, <code>README</code>, and tracking them with Git.</p>
+
+<p>What does Git have to say about <code>README</code> before we start? Because we haven't yet edited <code>README</code>, the Git commands <strong>diff</strong> and <strong>status</strong> show nothing special:</p>
+
+<pre><code>$ git diff README
+$ git status README 
+# On branch master
+nothing to commit (working directory clean)
+</code></pre>
+
+<p>As you can see, <strong>diff</strong> returned no output, and <strong>status</strong> returned a standard message indicating nothing about <code>README</code>.</p>
+
+<p>Let's try a third Git command, <strong>log</strong>, before we start editing <code>README</code> (I've truncated the output lines here):</p>
+
+<pre><code>$ git log README 
+commit a11be ...
+Author: Scott ...
+Date:   Sat Mar 15 ...
+    first commit
+</code></pre>
+
+<p>Unlike <strong>diff</strong> and <strong>status</strong>, <strong>log</strong> is showing us something specific about <code>README</code> even though we haven't edited our local copy. <strong>log</strong> shows us the complete history of a file, even from before the point at which we cloned the repository. (In this case, <code>README</code> doesn't have much of a history, only one entry.)</p>
+
+<p>Now, let's edit <code>README</code> (any editor will do) and save. For this example, we'll insert a sentence at the top. <strong>diff</strong> now shows that Git is aware of the change (I've truncated the output): </p>
+
+<pre><code>$ git diff README
+diff --git a/README b/README
+index a906cb2..d9efa26 100644
+--- a/README
++++ b/README
+@@ -1,6 +1,7 @@
++Tis but a flesh wound.
+...
+</code></pre>
+
+<p><strong>status</strong> does too:</p>
+
+<pre><code>$ git status README 
+# On branch master
+...
+#   modified:   README
+...
+</code></pre>
+
+<p>If we were to use <strong>log</strong> at this point, it would show no change. Before <strong>log</strong> will reflect our change, we must <em>commit</em> that change from the working copy to the local repository. A moment ago, when we saved our edit from within the editor, it affected only the working copy. That's because </p>
+
+<p>(1) a simple editor can't be expected to know about repositories or other revision-control artifacts, and</p>
+
+<p>(2) Git, as discussed earlier, has no daemon or other running process to "keep an eye" on the working copy.</p>
+
+<p>To make a <em>commit</em>, we'll use Git's <strong>commit</strong> command, and supply it with a comment:</p>
+
+<pre><code>$ git commit -m "This comment accompanies my first commit." README
+[master 92ee2c2] This comment accompanies my first commit.
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+</code></pre>
+
+<p>Now <strong>log</strong> reflects the change:</p>
+
+<pre><code>$ git log README 
+commit 92ee2 ...
+Author: Git username for MB acct i &lt;fake_gu4mbai@git.sample.fake&gt;
+Date:   Tue Oct 29 ...
+    This comment accompanies my first commit.
+
+commit a11be ...
+Author: Scott ...
+Date:   Sat Mar 15 ...
+    first commit
+</code></pre>
+
+<p>Just before the commit, the output of <strong>diff</strong> and <strong>status</strong> reflected the fact that the working copy and the repository were "out of sync", as the changes we saved to the file in the working copy had not yet been applied to the repository. In effect, the working copy had gotten ahead of the repository. Now that we've committed those changes to the repository, the two are again in sync, as the output of <strong>diff</strong> will show:</p>
+
+<pre><code>$ git diff README
+$
+</code></pre>
+
+<p>Just as when we first used it, <strong>diff</strong> has returned no output, meaning that there is no difference. (The second "$" is just the next shell prompt.)</p>
+
+<p>For the same reason, the output of <strong>status</strong> no longer mentions <code>README</code>:</p>
+
+<pre><code>$ git status README
+# On branch master
+# Your branch is ahead of 'origin/master' by 1 commit.
+#
+nothing to commit (working directory clean)
+</code></pre>
+
+<p>A new piece of information has appeared, which we'll ignore for now: "Your branch is ahead of 'origin/master' by 1 commit." (It refers to the difference between our local repository and the remote repository from which we cloned it.)</p>
+
+<p>Let's edit <code>README</code> again, changing the first line, and see what that does to <strong>diff</strong>'s output (I've truncated the output):</p>
+
+<pre><code>$ git diff README
+diff --git a/README b/README
+index d9efa26..c819d3a 100644
+--- a/README
++++ b/README
+@@ -1,4 +1,4 @@
+-Tis but a flesh wound.
++It's just a flesh wound.
+...
+</code></pre>
+
+<p>Here's what to focus on. Earlier, it showed this:</p>
+
+<pre><code>+Tis but a flesh wound.
+</code></pre>
+
+<p>But now it shows this:</p>
+
+<pre><code>-Tis but a flesh wound.
++It's just a flesh wound.
+</code></pre>
+
+<p>The minus sign shows what we removed, and the plus sign shows what we added.</p>
+
+<p>Now let's commit that change to the repository, again supplying a comment, and see how that affects the log:</p>
+
+<pre><code>$ git commit -m "This 2nd comment accompanies my 2nd commit." README
+[master 4550ce4] This 2nd comment accompanies my 2nd commit.
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+$ git log README 
+commit 4550c ...
+Author: Git username for MB acct i &lt;fake_gu4mbai@git.sample.fake&gt;
+Date:   Wed Oct 30 ...
+    This 2nd comment accompanies my 2nd commit.
+
+commit 92ee2 ...
+Author: Git username for MB acct i &lt;fake_gu4mbai@git.sample.fake&gt;
+Date:   Tue Oct 29 ...
+    This comment accompanies my first commit.
+
+commit a11be ...
+Author: Scott ...
+Date:   Sat Mar 15 ...
+    first commit
+</code></pre>
+
+<p>(From now on, this tutorial will omit invocations of <strong>diff</strong>, <strong>status</strong> and <strong>log</strong> unless there's a particular point to make. If you use them frequently, it'll keep the context of your current work fresh in your mind. At a shell prompt, up-arrow is a great tool for doing this easily!)</p>
+
+<p>Next, we'll create a couple of new files in the working copy:</p>
+
+<pre><code>$ ls -1
+README
+Rakefile
+lib
+$ touch food.txt
+$ touch clothes.txt
+$ ls -1
+README
+Rakefile
+clothes.txt
+food.txt
+lib
+</code></pre>
+
+<p>We'll edit them (not shown here, unsurprisingly) and admire our handiwork:</p>
+
+<pre><code>$ cat food.txt 
+grapes
+dormouse
+sherbet
+$ cat clothes.txt 
+sandals
+toga
+laurels
+</code></pre>
+
+<p>Next, a bit of housekeeping. As these are new files, we must make Git aware of them, by using Git's <strong>add</strong> command. To show that they were added, we'll use <strong>status</strong>. No filename is necessary with <strong>status</strong>:</p>
+
+<pre><code>$ git add *.txt
+$ git status
+# On branch master
+# Your branch is ahead of 'origin/master' by 2 commits.
+#
+# Changes to be committed:
+#   (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+#   new file:   clothes.txt
+#   new file:   food.txt
+</code></pre>
+
+<p>Now we can use a single <strong>commit</strong> command to commit both of these new files from the working copy to the repository (the "-a" flag isn't necessary, but is included here for consistency):</p>
+
+<pre><code>$ git commit -a -m "Romani ite domum"
+[master 16c0aa0] Romani ite domum
+ 2 files changed, 6 insertions(+), 0 deletions(-)
+ create mode 100644 clothes.txt
+ create mode 100644 food.txt
+</code></pre>
+
+<p>As with <strong>status</strong>, we didn't need to specify the filenames with <strong>commit</strong>. This commit operation covered every changed file in the working copy, as long as that file was either (a) present in the repository when it was cloned, or (b) brought to Git's attention via <strong>add</strong>. Let's edit both files again, show them here with cat and re-commit:</p>
+
+<pre><code>$ cat food.txt 
+grapes
+dormouse
+We're out of sherbet. How about some dung?
+$ cat clothes.txt 
+felt boots
+toga
+laurels
+$ git commit -a -m "Rome is falling"
+[master 8aa8c0c] Rome is falling
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+</code></pre>
+
+<p>And again:</p>
+
+<pre><code>$ cat food.txt 
+prunes
+dormouse jerky
+Dung it is.
+$ cat clothes.txt 
+felt boots
+toga
+horned helment
+$ git commit -a -m "Rome has fallen. (Scarsdale's next.)"
+[master ef755fd] Rome has fallen. (Scarsdale's next.)
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+</code></pre>
+
+<p>And again:</p>
+
+<pre><code>$ cat food.txt 
+rabbit stew
+hamster stuffed with elderberries
+Dung it is.
+$ cat clothes.txt 
+felt boots
+chain mail
+horned helment
+$ git commit -a -m "England AD 787"
+[master 3a6f7ca] England AD 787
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+</code></pre>
+
+<p>Just as we were able to omit the filename from <strong>status</strong> and <strong>commit</strong>, we can do so with <strong>diff</strong> and <strong>log</strong> (most lines left out here):</p>
+
+<pre><code>$ git diff
+$ git log
+...
+    England AD 787
+...
+    Rome has fallen. (Scarsdale's next.)
+...
+    Rome is falling
+...
+    Romani ite domum
+...
+    This 2nd comment accompanies my 2nd commit.
+...
+    This comment accompanies my first commit.
+...
+    changed the verison number
+...
+    removed unnecessary test code
+...
+    first commit
+</code></pre>
+
+<p>TODO: better diff tool (or shorter commit IDs?) - whole point of above seq
+TODO: log is repo-centric, vs. diff/status straddles working-copy &amp; repo</p>
+
+<p>Now let's get an overview of the changes we've committed. To do so, we'll use a GUI tool that's already installed:</p>
+
+<pre><code>$ gitk
+</code></pre>
+
+<p>The resulting OS X window doesn't come to the foreground, so use cmd-tab or the dock to select it. The lower half of the window is divided up the middle by a resize bar; drag it about two-thirds to the right (or else the "Line diff" selection list may be hidden). Near the left edge of the window, confirm that the "Diff" radio button is selected; over on the righthand half of the window, confirm that the "Patch" radio button is selected. In the upper-lefthand pane, use your up- and down-arrow keys to select each of the commits in turn, and as you do so, watch the changes in the lower-lefthand pane (divided into a "clothes.txt" section and a "food.txt" section). Repeat the experiment for each of the three values available in the selection list (the one that's on the same row as the "Diff" radio button): Line diff, Markup words, Color words.</p>
+
+<p>That's it for our tour of standalone Git. Next, we'll see what GitHub adds to the process.</p>
+
+<p>TODO: haven't covered creating a repo from scratch locally</p>
+
+<p>Earlier, we cloned someone else's repository. Now, let's create a repository from scratch. We could do this on our local filesystem, whether inside our informal workspace (<code>~/Git_wrkspc_wbhicks</code>) or not. But we'll do it on the GitHub side instead.</p>
+
+<p>Using this GitHub account (wbhicks) as an example: I logged into GitHub.com in a browser and selected the <strong>Repositories</strong> tab, then the <strong>New</strong> button. Under "Repository name", I entered <code>annotated-configs</code>, checked "Initialize this repository with a README", and from the "Add a license" dropdown list, selected "GPL v3". Then I clicked <strong>Create repository</strong>. This took me to the page <code>https://github.com/wbhicks/annotated-configs</code>.</p>
+
+<p>So far, our new repository exists only on GitHub. Let's add a file to it, entirely within the browser. My example: In the middle of the page, I clicked the icon that looks like a document with a plus sign in it. I gave it the name "made-in-browser.txt" and added some lines in the body. I then clicked <strong>Commit New File</strong> (which implicitly accepts the default value under "Commit summary"). I made a few more revisions to the file, still entirely within the browser.</p>
+
+<p>Let's use GitHub's tools to examine the file history. First, GitHub's "blame view": start on the repository's home page, e.g. <code>https://github.com/wbhicks/annotated-configs</code>, click on the filename, and display the "blame view" by clicking the <strong>Blame</strong> button on the horizontal button bar. Afterward, click <strong>Normal View</strong> to return.</p>
+
+<p>Second, GitHub's "history view": click the <strong>History</strong> button on the horizontal button bar. The revisions to the file are displayed in a stack. In the top item of the stack (i.e. the most recent revision), click the right-side button with the random label[1]. (That label consists of 10 hexadecimal digits, and it's the unique ID of that revision). The button I'm describing is directly <em>above</em> the link labelled "Browse code". (If you click on "Browse code" instead, you'll get a less colorful view.) Afterward, hit your browser's back button a couple of times to return to the "normal view" (the horizontal button bar isn't shown in "history view" -- an oversight I think).</p>
+
+<blockquote>
+<p>[1]equivalently, you can click on the comment for that revision</p>
+</blockquote>
+
+<p>Now that we've learned how to create a new file directly in a repository on GitHub, you might be wondering how to upload a file from your local filesystem to the repository on GitHub, without first being required to clone that repository onto your local filesystem. The answer is that there's no way to do so[2], because cloning the repository to your machine is considered to be the natural way to work with it.</p>
+
+<blockquote>
+<p>[2]see <a href="https://help.github.com/articles/issue-attachments">https://help.github.com/articles/issue-attachments</a> for the exception that proves the rule</p>
+</blockquote>
+
+<p>Therefore, let's take the repository we've created on GitHub, and clone it onto our local machine, so that we can add a local file to it. My example: </p>
+
+<p>Earlier, when we cloned a remote repo (the simplegit-progit project), we used the Git protocol:</p>
+
+<pre><code>$ git clone git://github.com/schacon/simplegit-progit.git
+</code></pre>
+
+<p>But going forward, we'll use the SSH protocol[3], and that means that the argument we pass to Git's clone command will have a fundamentally different form:</p>
+
+<blockquote>
+<p>[3]TODO: explain</p>
+</blockquote>
+
+<pre><code>$ git clone git@github.com:schacon/simplegit-progit.git
+</code></pre>
+
+<p>The name of the project will be different too, since the repo we want to clone is the annotated-configs project that we just created on the GitHub side:</p>
+
+<pre><code>$ git clone git@github.com:wbhicks/annotated-configs.git
+</code></pre>
+
+<blockquote>
+<p>Sidenote: </p>
+
+<p>How do you know what argument to pass to Git's clone command in your local shell? GitHub will tell you. On the repository's homepage, there's a box in the righthand margin that generates the right argument for you. Below the box, click the "SSH" link in the line that starts "You can clone with ...", since SSH is the protocol we want to use. That will populate the box correctly. As confirmation, observe that the label "SSH clone URL" now appears above the box.</p>
+</blockquote>
+
+<p>But when we actually try to clone, we get an error:</p>
+
+<pre><code>$ git clone git@github.com:wbhicks/annotated-configs.git
+Cloning into annotated-configs...
+The authenticity of host 'github.com (192.30.252.131)' can't be established.
+RSA key fingerprint is ...
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'github.com,192.30.252.131' (RSA) to the list of known hosts.
+Permission denied (publickey).
+fatal: The remote end hung up unexpectedly
+</code></pre>
+
+<p>And if you re-try, you get the same error, minus the warning:</p>
+
+<pre><code>$ git clone git@github.com:wbhicks/annotated-configs.git
+Cloning into annotated-configs...
+Warning: Permanently added the RSA host key for IP address '192.30.252.130' to the list of known hosts.
+Permission denied (publickey).
+fatal: The remote end hung up unexpectedly
+</code></pre>
+
+<p>So, we must take care of a preliminary step if we want to make any progress using the SSH protocol. That step is to create, and correctly place, the two parts of what's called a public/private keypair.</p>
+
+<p>TODO: Explain all about PKI. A couple of sentences should do it.</p>
+
+<ol>
+<li>Using OS X user account i</li>
+</ol><p>Under OS X user account i, we'll have to establish our PKI credentials with GitHub from scratch. Let's follow (more or less) the instructions at <a href="https://help.github.com/articles/generating-ssh-keys">https://help.github.com/articles/generating-ssh-keys</a> .</p>
+
+<p>First, let's see if user i already has a public/private keypair:</p>
+
+<pre><code>$ ls -la1 ~/.ssh
+.
+..
+known_hosts
+</code></pre>
+
+<p>So, it doesn't, or else we would have seen a pair of files, id_rsa and id_rsa.pub. Let's generate that keypair (just hit enter whenever the process asks for input):</p>
+
+<pre><code>$ ssh-keygen -t rsa -C "This comment could have said anything."
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/i/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/i/.ssh/id_rsa.
+Your public key has been saved in /Users/i/.ssh/id_rsa.pub.
+...
+</code></pre>
+
+<p>Now let's confirm that the keypair has been generated and placed in ~/.ssh:</p>
+
+<pre><code>$ ls -la1 ~/.ssh
+.
+..
+id_rsa
+id_rsa.pub
+known_hosts
+</code></pre>
+
+<p>Now we need to provide GitHub with the public half of that keypair -- i.e., id_rsa.pub -- by associating it with a GitHub account. Once we do, we'll be able to enjoy two-way communication between (1) the <code>git</code> program on our local machine and (2) GitHub. Specifically, all the repos in that particular GitHub account will be manipulable by our local Git.[4]</p>
+
+<blockquote>
+<p>[4]Admittedly, when we started this tutorial, we were able to clone a repo from GitHub right away. However, we wouldn't have been able to propagate our edits back to the point of origin. (Bonus points for understanding why I didn't say "back to the source" just there.) Using a public/private keypair isn't the only way to allow such two-way communication, but that's how the SSH protocol works; and until the keypair is set up properly, even the harmless ("read-only", or "non-destructive") step of cloning <em>from</em> a remote repo will fail, if SSH is the protocol.</p>
+</blockquote>
+
+<p>My example: In the browser, log into the wbhicks account on GitHub and click the <strong>Account Settings</strong> icon in the upper-righthand corner of the page. Click on the "SSH Keys" link, then the <strong>Add SSH key</strong> button.</p>
+
+<p>Switch over to a shell prompt (in your Terminal.app window) and execute either of these commands (bonus point: why are they equivalent?):</p>
+
+<pre><code>$ pbcopy &lt; ~/.ssh/id_rsa.pub
+</code></pre>
+
+<p>or</p>
+
+<pre><code>$ cat ~/.ssh/id_rsa.pub | pbcopy
+</code></pre>
+
+<p>That will copy your public key to your clipboard. Now switch back to your browser window, click into the text entry area labelled "Key", and hit cmd-c to paste the public key into GitHub's form. (Don't type anything else, such as a return, into that text entry area.) Add a title if you like, and click <strong>Add key</strong> to upload the form to GitHub. (You'll need your GitHub password.) Now you should see that the public key has been added to the list of public keys for that GitHub account.</p>
+
+<p>TODO: explain list; why multiple entries in the 1st place</p>
+
+<hr><p>TODO: explain following mention of known_hosts (maybe due to GitHub load balancing?):</p>
+
+<pre><code>$ git push
+Warning: Permanently added the RSA host key for IP address '192.30.252.129' to the list of known hosts.
+Counting objects: 5, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 340 bytes, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To git@github.com:wbhicks/annotated-configs.git
+   f08bae0..460b97f  master -&gt; master
+</code></pre>
+
+<p>happened again:</p>
+
+<pre><code>$ git push
+Warning: Permanently added the RSA host key for IP address '192.30.252.128' to the list of known hosts.
+...
+</code></pre>
+
+<p>TODO: refactor throughout, above, with this dry-run timesaver:</p>
+
+<pre><code>$ git add -n .
+...
+$ git add .
+</code></pre>
+
+<p>TODO: .DS_Store files aren't added, even recursively. Nice, but does that apply to all dot files?</p>
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Doc maintained by <a href="https://github.com/wbhicks">wbhicks</a></p>
+        <p class="copyright">doc maintained by <a href="https://github.com/wbhicks">wbhicks</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
