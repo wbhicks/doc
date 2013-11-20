@@ -1,9 +1,9 @@
 ---
-title: test.markdown2test.html
+title: test.md2test.html
 layout: default
 ---
 
-aaa
+this is test.md
 
 ### 3 hashes
 
